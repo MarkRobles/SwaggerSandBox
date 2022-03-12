@@ -34,7 +34,7 @@ namespace SwaggerSandBox
                 setupAction.SwaggerDoc("YourProject_OPENAPISpecification",
                    new Microsoft.OpenApi.Models.OpenApiInfo()
                    {
-                       Title = "AliveBlog API",
+                       Title = "ProjectName API",
                        Version = "1",
                    });
             });
@@ -52,7 +52,14 @@ namespace SwaggerSandBox
 
             app.UseRouting();
             app.UseSwagger();
-
+            //http://localhost:59807/swagger/index.html
+            app.UseSwaggerUI(setupAction =>
+            {
+                setupAction.SwaggerEndpoint(
+                    "/swagger/YourProject_OPENAPISpecification/swagger.json",
+                    "ProjectName API");
+                setupAction.RoutePrefix = "";//Documentation available at the root
+            });
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
