@@ -26,6 +26,18 @@ namespace SwaggerSandBox
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            //Add open api specification
+            //Test if it works :http://localhost:44302/swagger/YourProject_OPENAPISpecification/swagger.json
+            services.AddSwaggerGen(setupAction =>
+            {
+                setupAction.SwaggerDoc("YourProject_OPENAPISpecification",
+                   new Microsoft.OpenApi.Models.OpenApiInfo()
+                   {
+                       Title = "AliveBlog API",
+                       Version = "1",
+                   });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,6 +51,7 @@ namespace SwaggerSandBox
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseSwagger();
 
             app.UseAuthorization();
 
